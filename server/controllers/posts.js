@@ -1,4 +1,5 @@
 import Post from '../models/posts.js';
+import validatePost from '../models/validation.js';
 
 // Get all posts
 export const getAllPosts = async (req, res) => {
@@ -12,6 +13,17 @@ export const getAllPosts = async (req, res) => {
 
 export const createPost = async (req, res) => {
     console.log(req.body)
+    // Validate the post data
+    // try {
+    //     validatePost(req.body);
+    // } catch (error) {
+    //     return res.status(400).json({ message: error.message }).send("Validation error");
+    // }
+    const validate = validatePost(req.body);
+    if (!validate) {
+        return res.status(400).json({ message: "Invalid post data" });
+    }
+    console.log('is continue')
     try {
         const post = new Post(req.body);
         await post.save();
