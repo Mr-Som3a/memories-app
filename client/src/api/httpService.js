@@ -1,3 +1,5 @@
+import validatePost from "./validation";
+
 const URL = 'http://localhost:3000/posts';
 
 export const fetchPosts = async () => {
@@ -18,21 +20,24 @@ export const fetchPosts = async () => {
   }
 }
 
-
+//creating a post 
 export const createPost = async (postData) => {
+
+  const validate = validatePost(postData)
+  if(!validate){
+    throw new Error("validation not accepted");
+  }
   try {
     const response = await fetch(URL, {
       method: 'POST',
       body: JSON.stringify(postData),
     });
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
     return await response.json();
   } catch (error) {
     console.error('Error creating post:', error);
     throw error;
   }
+  
 }
 
 export const deletePost = async (postId) => {
