@@ -1,25 +1,30 @@
 import express from 'express';  
+import dotenv from 'dotenv'
 import mongoose from 'mongoose';
 import postsRouter from './routers/posts.js';
 import cors from 'cors';
+import path from 'path'
 
+
+dotenv.config()
 const app = express();
+const __dirname = path.resolve();
 
 app.use(express.json());
-// app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: true }));
 app.use(cors({
     origin: 'http://localhost:4000', 
     credentials: true,
 }));
-app.use('/uploads', express.static('uploads'));
-
 app.use('/posts', postsRouter);
 
 
-const PORT = process.env.PORT || 3000;
-const DB_URL = process.env.DB_URL || 'mongodb+srv://Mr-Som3a:8m8m8m8m@cluster0.eg8ggbn.mongodb.net/';
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-mongoose.connect(DB_URL, {
+const PORT = process.env.PORT ||3000
+
+// Database Connection
+mongoose.connect(process.env.MONGODB_URL, {
 }).then(() => {
     console.log('Connected to MongoDB');
 }).catch(err => {
@@ -28,5 +33,5 @@ mongoose.connect(DB_URL, {
 });
 
 app.listen(PORT,()=>{
-    console.log('Server is running on port'+ PORT);
+    console.log('Server is running on port '+ PORT);
 })

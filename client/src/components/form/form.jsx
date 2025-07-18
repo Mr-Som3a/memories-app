@@ -8,7 +8,7 @@ const Form = ({ onSubmit }) => {
     tags: "code, DB, server, client",
     selectedFile: "",
   });
-console.log(data)
+
   //Reset the fields 
   const handleReset = (event) => {
     event.preventDefault();

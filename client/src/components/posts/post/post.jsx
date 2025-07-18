@@ -1,10 +1,12 @@
 const Post = ({ post, onDelete }) => {
+  const API_BASE_URL = import.meta.env.VITE_API_URL
+  // console.log(post.selectedFile)
   return (
     <div>
       <div className="card  w-[15rem] shadow-sm ">
         <figure className="">
           <img
-            src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+            src= {`${API_BASE_URL}${post.selectedFile}`||"https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"} 
             alt="Shoes"
             className="rounded-t-xl"
           />

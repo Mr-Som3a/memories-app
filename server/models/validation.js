@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-export const postSchema = Joi.object({
+const postSchema = Joi.object({
   title: Joi.string().min(3).max(100).required(),
   message: Joi.string().min(10).max(500).required(),
   creator: Joi.string().min(3).max(50).required(),
@@ -8,11 +8,9 @@ export const postSchema = Joi.object({
   createdAt: Joi.date(),
 });
 
-const validationPost = (schema) => (req, res, next) => {
-  const { error } = schema.validate({
-    ...req.body,
-    selectedFile: req.file
-  });
+const validationPost = (req, res, next) => {
+ 
+  const { error } = postSchema.validate(req.body);
   
   if (error) {
     return res.status(400).json({ message: error.details[0].message });

@@ -1,20 +1,11 @@
 import * as Yup from "yup";
 
 export const postSchema = Yup.object({
-  title: Yup.string().min(2).required(),
+  title: Yup.string().min(2),
   message: Yup.string().min(3).max(500).required(),
   creator: Yup.string().min(2).max(50).required(),
   tags: Yup.array(),
-  selectedFile:Yup.mixed().test(
-          'fileType',
-          'Only JPG/PNG images allowed',
-          value => value && ['image/jpeg', 'image/png'].includes(value.type)
-        )
-        .test(
-          'fileSize',
-          'File too large (max 2MB)',
-          value => value && value.size <= 2 * 1024 * 1024
-        )
+  selectedFile:Yup.mixed()
 });
 
 
@@ -23,7 +14,7 @@ const validatePost = (post) => {
   if (error) {
     return console.log(error, "not accepted inside vali");
   }
-  console.log('vaildation success')
+
   return true;
 };
 

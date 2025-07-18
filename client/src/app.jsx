@@ -11,17 +11,17 @@ const App = () => {
   const handleSubmit =async (event,data) => {
     event.preventDefault();
   
-
     const DataBody = {...data}
     DataBody.tags = data.tags.split(",")
     // Handle form submission logic here
-    console.log("Form submitted",DataBody);
     
     try {
     const res=  await createPost(DataBody)
-    console.log("Post created successfully:", res);
+    
     dispatch(getAllPosts());
+    return console.log(res)
     } catch (error) {
+    
       console.log(error,'wasnt created ')
     } 
   };

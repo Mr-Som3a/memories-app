@@ -1,6 +1,6 @@
 import validatePost from "./validation";
-
-const URL = 'http://localhost:3000/posts';
+// 'http://localhost:5000/posts'
+const URL = import.meta.env.VITE_API_URL+'/posts'
 
 export const fetchPosts = async () => {
   try {
@@ -27,14 +27,22 @@ export const createPost = async (postData) => {
   if(!validate){
     throw new Error("validation not accepted");
   }
+
   try {
+    
     const response = await fetch(URL, {
       method: 'POST',
-      body: JSON.stringify(postData),
+      body: JSON.stringify(postData)
     });
+
+    //   if (!response.ok) {
+    //   throw new Error('Network response was not ok',response);
+    // }
+
     return await response.json();
+    
   } catch (error) {
-    console.error('Error creating post:', error);
+    console.error('Error POST req for posts:', error);
     throw error;
   }
   
