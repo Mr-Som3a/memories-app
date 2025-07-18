@@ -16,7 +16,7 @@ const Form = ({ onSubmit }) => {
     setData({title: "",message: "",creator: "",tags: [],selectedFile:null });
   };
   return (
-    <form className="w-full shadow-2xl bg-transparent">
+    <form className="w-full shadow-2xl bg-transparent" encType="multipart/form-data">
       <fieldset className="fieldset  border-base-300 rounded-box  border p-4">
         <legend className="fieldset-legend text-black text-2xl">
           Adding Memory
@@ -61,7 +61,10 @@ const Form = ({ onSubmit }) => {
           <input
      
             onChange={(e) =>
+            {
+              console.log(e.target.files[0])
               setData({ ...data, selectedFile: e.target.files[0] })
+            }
             }
             type="file"
             className="file-input bg-white"

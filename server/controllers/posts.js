@@ -30,9 +30,7 @@ export const createPost = async (req, res) => {
     const newPost = await post.save();
    return res.status(201).json(newPost);
   } catch (error) {
-    return res
-      .status(400)
-      .json({ message: error.message })
+    return console.log(error,'error occure ,serv')
   }
 };
 // Delete a post

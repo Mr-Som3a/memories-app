@@ -1,6 +1,6 @@
 const Post = ({ post, onDelete }) => {
   const API_BASE_URL = import.meta.env.VITE_API_URL
-  // console.log(post.selectedFile)
+
   return (
     <div>
       <div className="card  w-[15rem] shadow-sm ">
@@ -15,7 +15,7 @@ const Post = ({ post, onDelete }) => {
           <h2 className="card-title">{post.title}</h2>
           <div>
             {post.tags.length > 0
-              ? "# " + post.tags.map((tag) => <span>{tag}</span>)
+              ? "# " + post.tags.map((tag) => `${tag}`)
               : "#no"}
           </div>
           <p>{post.message}</p>

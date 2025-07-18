@@ -11,18 +11,25 @@ const App = () => {
   const handleSubmit =async (event,data) => {
     event.preventDefault();
   
-    const DataBody = {...data}
-    DataBody.tags = data.tags.split(",")
-    // Handle form submission logic here
+    // const formData = new FormData()
     
+    // formData.append("title",data.title)
+    // formData.append("message",data.message)
+    // formData.append("creator",data.creator)
+    // formData.append("tags",data.tags.split(","))
+    // formData.append("selectedFile",data.selectedFile)
+
+    
+    const formData = {...data}
+    formData.tags = data.tags.split(",")
+
     try {
-    const res=  await createPost(DataBody)
-    
+    const {data}=await createPost(formData)
+    console.log(data)
     dispatch(getAllPosts());
-    return console.log(res)
     } catch (error) {
-    
-      console.log(error,'wasnt created ')
+      throw new Error('error occure ',error)
+      // console.log(error,'wasnt created ')
     } 
   };
 

@@ -1,4 +1,6 @@
 import validatePost from "./validation";
+import axios from 'axios'
+
 // 'http://localhost:5000/posts'
 const URL = import.meta.env.VITE_API_URL+'/posts'
 
@@ -21,7 +23,8 @@ export const fetchPosts = async () => {
 }
 
 //creating a post 
-export const createPost = async (postData) => {
+export const createPost = async (postData)=>{
+  console.log(postData)
 
   const validate = validatePost(postData)
   if(!validate){
@@ -29,24 +32,17 @@ export const createPost = async (postData) => {
   }
 
   try {
-    
-    const response = await fetch(URL, {
-      method: 'POST',
-      body: JSON.stringify(postData)
-    });
-
-    //   if (!response.ok) {
-    //   throw new Error('Network response was not ok',response);
-    // }
-
-    return await response.json();
-    
-  } catch (error) {
-    console.error('Error POST req for posts:', error);
-    throw error;
+    const res = await axios.post(URL,postData,{ headers: {
+      'Content-Type': 'multipart/form-data',
+    }})
+    console.log(res)
+    return res
+  } catch (err) {
+    console.log(err,'error axios')
   }
-  
+
 }
+
 
 export const deletePost = async (postId) => {
   try {

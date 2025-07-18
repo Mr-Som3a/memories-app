@@ -3,7 +3,7 @@ import { getAllPosts, createPost,deletePost } from '../controllers/posts.js';
 import validationPost from '../models/validation.js';
 import upload from '../config/multer.js';
 
-
+// selectedFile
 
 const router = express.Router();
 
